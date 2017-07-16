@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Bengawanews</string>
+    <string name="akun">Akun</string>
+    <string name="history">History</string>
+    <string name="home">Home</string>
+    <string name="maps">Maps</string>
+    <string name="fragment_history">Fragment History</string>
+    <string name="fragment_home">Fragment Home</string>
+    <string name="fragment_maps">Fragment Maps</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Fullname</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_register">REGISTER</string>
+    <string name="btn_link_to_register">Not a member? Sign up now.</string>
+    <string name="btn_link_to_login">Already registred! Login Me.</string>
+    <string name="welcome">Welcome</string>
+    <string name="btn_logout">LOGOUT</string>
+    <string name="name">Fullname</string>
+    <string name="logout">Logout</string>
+    <string name="nama_user">NAMA USER</string>
+    <string name="nomor_handphone">NOMOR HANDPHONE</string>
+    <string name="nomor_handphone_aktif">Nomor Handphone Aktif</string>
+    <string name="nama_lengkap">Nama lengkap</string>
+</resources>

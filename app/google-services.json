@@ -1,0 +1,45 @@
+{
+  "project_info": {
+    "project_number": "842112437611",
+    "firebase_url": "https://bengawanews-c454b.firebaseio.com",
+    "project_id": "bengawanews-c454b",
+    "storage_bucket": "bengawanews-c454b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842112437611:android:379f8f6df322f9eb",
+        "android_client_info": {
+          "package_name": "com.apn404.ews.bengawanews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "842112437611-22atg30qqq1odul4pn4t6fm5b1iko92p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr7R4iXhDYcIZiuG61ieGv71bW3s0Tu6Y"
+        },
+        {
+          "current_key": "AIzaSyBPVDzK4-DOXI7czh-uOg2GVYWAQayTr2o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
