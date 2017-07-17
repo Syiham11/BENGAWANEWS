@@ -41,7 +41,7 @@ public class FragmentAkun extends Fragment {
         nama_user = user.get(SessionManager.KEY_NAMA_USER);
 
         TextView status = (TextView) view.findViewById(R.id.status);
-        status.setText(Html.fromHtml("Welcome,<b>" + nama_user + "</b>  "));
+        status.setText(Html.fromHtml("Haloo.. <b>" + nama_user + "</b>  "));
 
         logout = (Button) view.findViewById(R.id.logout);
 

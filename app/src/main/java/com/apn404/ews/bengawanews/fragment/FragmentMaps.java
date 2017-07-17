@@ -111,7 +111,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
                         mMap.addMarker(new MarkerOptions()
                                 .position(latLng[i])
                                 .title(nama_lokasi[i])
-                                .snippet(ketinggian_air[i]+"CM")
+                                .snippet(ketinggian_air[i]+" Meter")
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.atm)));
                     } catch (JSONException je) {
                         je.printStackTrace();
@@ -125,7 +125,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getActivity(),"Failed To Load",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Koneksi Terputus",Toast.LENGTH_LONG).show();
             }
         });
         //Volley.newRequestQueue(this).add(request);

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -26,6 +27,8 @@ import com.apn404.ews.bengawanews.utils.Server;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -131,7 +134,7 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                swipe.setRefreshing(false);
+                Toast.makeText(getActivity(),"Koneksi Terputus",Toast.LENGTH_LONG).show();
             }
         });
 

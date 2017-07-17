@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/bg_register"
+    android:background="#3399ff"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp" >
@@ -14,27 +14,38 @@
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp" >
+        <!-- Link to Login Screen -->
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:layout_marginBottom="5dp"
+            android:text="| Registrasi Data" />
+        <EditText
+            android:id="@+id/editTextNama"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="#b3d9ff"
+            android:hint="Nama Lengkap"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:inputType="textCapWords"
+            android:textColor="@color/input_register"
+            android:textColorHint="@color/input_register_hint" />
 
         <EditText
             android:id="@+id/editTextNoHp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
+            android:background="#b3d9ff"
+            android:layout_marginTop="10dp"
             android:hint="@string/nomor_handphone_aktif"
             android:padding="10dp"
-            android:textColor="@color/input_register"
-            android:textColorHint="@color/input_register_hint" />
-
-        <EditText
-            android:id="@+id/editTextNama"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
-            android:hint="@string/nama_lengkap"
-            android:padding="10dp"
-            android:inputType="textCapWords"
             android:textColor="@color/input_register"
             android:textColorHint="@color/input_register_hint" />
 
@@ -45,22 +56,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="#ea4c88"
+            android:background="#0066cc"
             android:text="@string/btn_register"
             android:textColor="@color/white" />
 
-        <!-- Link to Login Screen -->
 
-        <Button
-            android:id="@+id/login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dip"
-            android:background="@null"
-            android:text="@string/btn_link_to_login"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
     </LinearLayout>
 
 </LinearLayout>

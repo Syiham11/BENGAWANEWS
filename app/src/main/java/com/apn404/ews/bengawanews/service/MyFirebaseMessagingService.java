@@ -1,9 +1,12 @@
 package com.apn404.ews.bengawanews.service;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.apn404.ews.bengawanews.LoginActivity;
 import com.apn404.ews.bengawanews.MainActivity;
+import com.apn404.ews.bengawanews.SplashActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -12,6 +15,8 @@ import org.json.JSONObject;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
+    SharedPreferences sharedPreferences;
+    String string;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -19,8 +24,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.e(TAG, "Data Payload: " + remoteMessage.getData().toString());
             try {
                 JSONObject json = new JSONObject(remoteMessage.getData().toString());
+                sharedPreferences = getSharedPreferences("Sesi", 0);
+                string = sharedPreferences.getString("nama_user",null);
+                if(string==null) {
 
-                sendPushNotification(json);
+                }else{
+                    sendPushNotification(json);
+                }
+
             } catch (Exception e) {
                 Log.e(TAG, "Exception: " + e.getMessage());
             }

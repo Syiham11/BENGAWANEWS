@@ -82,6 +82,7 @@ public class LoginActivity extends Activity  {
 
             pDialog = new ProgressDialog(LoginActivity.this);
             pDialog.setMessage("Sedang memuat...");
+
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -89,6 +90,7 @@ public class LoginActivity extends Activity  {
         @Override
         protected String doInBackground(String... arg0) {
             JSONParser jParser = new JSONParser();
+
             JSONObject json = jParser.getJSONFromUrl(url);
             try {
                 success = json.getString("success");
@@ -100,14 +102,13 @@ public class LoginActivity extends Activity  {
                         String nama_user = c.getString("nama_user").trim();
                         String no_hp = c.getString("no_hp").trim();
                         session.createLoginSession(nama_user,no_hp);
-                        Log.e("ok", " ambil data");
                     }
                 } else {
-                    Log.e("erro", "tidak bisa ambil data 0");
+                    Toast.makeText(getApplicationContext(), "Koneksi Terputus", Toast.LENGTH_LONG).show();
                 }
 
             } catch (Exception e) {
-                Log.e("erro", "tidak bisa ambil data 1");
+                Toast.makeText(getApplicationContext(), "Koneksi Terputus", Toast.LENGTH_LONG).show();
             }
             return null;
 
@@ -123,6 +124,7 @@ public class LoginActivity extends Activity  {
             } else {
                 Toast.makeText(getApplicationContext(), "Nama / Nomor Tidak Valid!!", Toast.LENGTH_LONG).show();
             }
+
         }
     }
 
