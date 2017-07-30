@@ -25,4 +25,12 @@
     <string name="nomor_handphone">NOMOR HANDPHONE</string>
     <string name="nomor_handphone_aktif">Nomor Handphone Aktif</string>
     <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="facebook_app_id">158901157991073</string>
+    <string name="fb_login_protocol_scheme">fb158901157991073</string>
+    <string name="cancel_login">Cancel</string>
+    <string name="error_login">Error Login</string>
+    <string name="setting">Setting</string>
+    <string name="Pilih">Pilih</string>
+    <string name="email">EMAIL</string>
+    <string name="reset">RESET</string>
 </resources>

@@ -33,8 +33,8 @@ public class SessionManager {
 
     // All Shared Preferences Keys
     private static final String IS_LOGIN = "IsLoggedIn";
-    public static final String KEY_NAMA_USER = "nama_user";
-    public static final String KEY_NO_HP = "no_hp";
+    public static final String KEY_EMAIL = "email";
+    public static final String KEY_UID = "uid";
 
     // Constructor
     public SessionManager(Context context){
@@ -46,11 +46,11 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String nama_user,String no_hp){
+    public void createLoginUser(String email,String uid){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
-        editor.putString(KEY_NAMA_USER, nama_user);
-        editor.putString(KEY_NO_HP, no_hp);
+        editor.putString(KEY_EMAIL, email);
+        editor.putString(KEY_UID, uid);
         editor.commit();
     }
 
@@ -76,8 +76,8 @@ public class SessionManager {
      * */
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<String, String>();
-        user.put(KEY_NAMA_USER, pref.getString(KEY_NAMA_USER, null));
-        user.put(KEY_NO_HP, pref.getString(KEY_NO_HP, null));
+        user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+        user.put(KEY_UID, pref.getString(KEY_UID, null));
 
         return user;
     }

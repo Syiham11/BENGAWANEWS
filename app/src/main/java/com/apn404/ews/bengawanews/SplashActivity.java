@@ -10,9 +10,6 @@ import android.view.WindowManager;
 
 public class SplashActivity extends Activity {
 
-    SharedPreferences sharedPreferences;
-    String string;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,23 +18,13 @@ public class SplashActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_splash);
-        sharedPreferences = getSharedPreferences("Sesi", 0);
-        string = sharedPreferences.getString("nama_user",null);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(string==null) {
-                    Intent i = new Intent(SplashActivity.this, LoginActivity.class);
-                    startActivity(i);
-                    finish();
-                }else{
-                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
-                }
+            Intent i = new Intent(SplashActivity.this, LoginActivity.class);
+            startActivity(i);
+            finish();
             }
         }, 2000);
-
     }
-
 }

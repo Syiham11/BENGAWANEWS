@@ -15,6 +15,7 @@ import com.apn404.ews.bengawanews.fragment.FragmentAkun;
 import com.apn404.ews.bengawanews.fragment.FragmentHistory;
 import com.apn404.ews.bengawanews.fragment.FragmentHome;
 import com.apn404.ews.bengawanews.fragment.FragmentMaps;
+import com.apn404.ews.bengawanews.fragment.FragmentNotif;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,10 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         //untuk inisialisasi fragment pertama kali
         fragmentManager.beginTransaction().replace(R.id.main_container,new FragmentHome()).commit();
-        /*fragmentManager.beginTransaction().replace(R.id.main_container,new FragmentHistory()).commit();
-        fragmentManager.beginTransaction().replace(R.id.main_container,new FragmentHome()).commit();
-        fragmentManager.beginTransaction().replace(R.id.main_container,new FragmentMaps()).commit();
-        *///memberikan listener saat menu item di bottom diklik
+        //memberikan listener saat menu item di bottom diklik
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -53,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.menu_akun:
                         fragment = new FragmentAkun();
+                        break;
+                    case R.id.menu_notif:
+                        fragment = new FragmentNotif();
                         break;
                 }
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();

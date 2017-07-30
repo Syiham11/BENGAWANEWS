@@ -1,143 +1,175 @@
 package com.apn404.ews.bengawanews;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-import com.apn404.ews.bengawanews.adapter.JSONParser;
-import com.apn404.ews.bengawanews.helper.SessionManager;
+import java.util.Arrays;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+public class LoginActivity extends AppCompatActivity {
 
-public class LoginActivity extends Activity  {
+    //Login Account Facebook
+    private LoginButton loginButton;
+    private CallbackManager callbackManager;
 
-    Button daftar, login;
-    Intent a;
-    EditText nama_user,no_hp;
-    String url, success;
-    SessionManager session;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener firebaseAuthListener;
+
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        session = new SessionManager(getApplicationContext());
 
-        daftar = (Button) findViewById(R.id.daftar);
-        login = (Button) findViewById(R.id.login);
-        nama_user = (EditText) findViewById(R.id.nama_user);
-        no_hp = (EditText) findViewById(R.id.no_hp);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        //button_login= (Button) findViewById(R.id.button_login_petugas);
 
-        daftar.setOnClickListener(new OnClickListener()
-        {
+        callbackManager = CallbackManager.Factory.create();
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setReadPermissions(Arrays.asList("email"));
+
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
 
             @Override
-            public void onClick(View arg0) {
-                Intent daftar = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(daftar);
+            public void onCancel() {
+                Toast.makeText(getApplicationContext(), "Cancel Login Facebook", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(getApplicationContext(), "Please Check Your Internet Connection...", Toast.LENGTH_SHORT).show();
             }
         });
 
-        login.setOnClickListener(new OnClickListener() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuthListener = new FirebaseAuth.AuthStateListener(){
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null){
+                    goMainActivity();
+                }
+            }
+        };
 
+        /*button_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                url = "http://ews.apn404.com/TA/android/Login.php?" + "nama_user="
-                        + nama_user.getText().toString()+ "&no_hp="
-                        + no_hp.getText().toString();
+                goLoginPetugas();
+            }
+        });*/
+    }
 
-                if (nama_user.getText().toString().trim().length() > 0
-                        && no_hp.getText().toString().trim().length() > 0)
-                {
-                    new Masuk().execute();
+/*
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult){
+
+    }
+*/
+
+    /*private void goLoginPetugas(){
+        Intent intent = new Intent(this, LoginPetugasActivity.class);
+        startActivity(intent);
+    }*/
+
+    private void handleFacebookAccessToken(AccessToken accessToken){
+        progressBar.setVisibility(View.VISIBLE);
+        loginButton.setVisibility(View.GONE);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>(){
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task){
+                if(!task.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "Please Check Your Internet Connection...", Toast.LENGTH_LONG).show();
                 }
-                else
-                {
-                    Toast.makeText(getApplicationContext(), "Nama / Nomor belum terisi", Toast.LENGTH_LONG).show();
-                }
+                progressBar.setVisibility(View.VISIBLE);
+                loginButton.setVisibility(View.GONE);
             }
         });
     }
 
-    private class Masuk extends AsyncTask<String, String, String>
-    {
-        ProgressDialog pDialog;
+    private void goMainActivity(){
+        Intent intent = new Intent(this, ProsesLoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 
-            pDialog = new ProgressDialog(LoginActivity.this);
-            pDialog.setMessage("Sedang memuat...");
-
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
-        @Override
-        protected String doInBackground(String... arg0) {
-            JSONParser jParser = new JSONParser();
-
-            JSONObject json = jParser.getJSONFromUrl(url);
-            try {
-                success = json.getString("success");
-                Log.e("error", "nilai sukses=" + success);
-                JSONArray hasil = json.getJSONArray("login");
-                if (success.equals("1")) {
-                    for (int i = 0; i < hasil.length(); i++) {
-                        JSONObject c = hasil.getJSONObject(i);
-                        String nama_user = c.getString("nama_user").trim();
-                        String no_hp = c.getString("no_hp").trim();
-                        session.createLoginSession(nama_user,no_hp);
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Koneksi Terputus", Toast.LENGTH_LONG).show();
-                }
-
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Koneksi Terputus", Toast.LENGTH_LONG).show();
-            }
-            return null;
-
-        }
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            pDialog.dismiss();
-            if (success.equals("1")) {
-                a = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(a);
-                finish();
-            } else {
-                Toast.makeText(getApplicationContext(), "Nama / Nomor Tidak Valid!!", Toast.LENGTH_LONG).show();
-            }
-
+   /* private void handleSignInResult(GoogleSignInResult result){
+        if(result.isSuccess()){
+            firebaseAuthWithGoogle(result.getSignInAccount());
+        }else{
+            Toast.makeText(this, "Cancel Login Google", Toast.LENGTH_SHORT).show();
         }
     }
 
+*/    /*private void firebaseAuthWithGoogle(GoogleSignInAccount signInAccount){
+
+        progressBar.setVisibility(View.VISIBLE);
+        signInButton.setVisibility(View.GONE);
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(),null);
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                progressBar.setVisibility(View.GONE);
+                signInButton.setVisibility(View.VISIBLE);
+                if(task.isSuccessful()){
+
+                }
+            }
+        });
+    }*/
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        firebaseAuth.addAuthStateListener(firebaseAuthListener);
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        if(firebaseAuth != null) {
+            firebaseAuth.removeAuthStateListener(firebaseAuthListener);
+        }
+    }
+
+    @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setMessage("Keluar Aplikasi ?")
-                .setCancelable(false)
-                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        LoginActivity.this.finish();
-                    }
-                })
-                .setNegativeButton("Tidak", null)
-                .show();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }
