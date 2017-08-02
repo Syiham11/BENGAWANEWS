@@ -30,7 +30,7 @@ public class FragmentHistory extends Fragment {
         web = (WebView) view.findViewById(R.id.web);
         web.setWebViewClient(new FragmentHistory.myWebClient());
         web.getSettings().setJavaScriptEnabled(true);
-        web.loadUrl("http://banjir.mitigasi.com/banjir/dasbor/jejak");
+        web.loadUrl("http://banjir.mitigasi.com/banjir/dasbor/jejakA");
 
         return view;
     }

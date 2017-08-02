@@ -13,33 +13,65 @@
         android:orientation="vertical"
         android:background="#b3d9ff"
         android:padding="5dp" >
+
     <TextView
         android:id="@+id/id_lokasi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"/>
 
+        <TextView
+            android:id="@+id/nama_lokasiti"
+            android:icon="@drawable/ic_action_history"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:text="LOKASI : "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/nama_lokasi"
         android:icon="@drawable/ic_action_history"
         android:layout_marginBottom="5dp"
-        android:textStyle="bold"
         android:textAllCaps="true"
         android:layout_width="wrap_content"
+        android:layout_toEndOf="@+id/nama_lokasiti"
         android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/waktu_lokasiti"
+            android:icon="@drawable/ic_action_history"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:text="JAM / TANGGAL : "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/date_time"
         android:icon="@drawable/ic_action_history"
         android:layout_marginBottom="5dp"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
+        android:layout_toEndOf="@+id/waktu_lokasiti"
         android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tinggi_lokasiti"
+            android:icon="@drawable/ic_action_history"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:text="KETINGGIAN (cm) : "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/ketinggian_air"
         android:icon="@drawable/ic_action_history"
         android:layout_width="wrap_content"
+        android:layout_toEndOf="@+id/tinggi_lokasiti"
         android:layout_height="wrap_content" />
 
     </LinearLayout>

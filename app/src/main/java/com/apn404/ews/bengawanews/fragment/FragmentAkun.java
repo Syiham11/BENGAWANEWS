@@ -48,9 +48,6 @@ public class FragmentAkun extends Fragment {
         stremail = this.session.getUserDetails().get(SessionManager.KEY_EMAIL);
 
         session = new SessionManager(getActivity().getApplicationContext());
-        if (stremail!=null){
-            Toast.makeText(FragmentAkun.this.getActivity(),stremail, Toast.LENGTH_SHORT).show();
-        }
 
         if (AccessToken.getCurrentAccessToken()==null){
             goLoginScreen();

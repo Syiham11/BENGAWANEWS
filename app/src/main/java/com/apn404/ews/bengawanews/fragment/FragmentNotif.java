@@ -1,76 +1,66 @@
 package com.apn404.ews.bengawanews.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Spinner;
 import android.widget.Toast;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import com.apn404.ews.bengawanews.JSONParser;
+import com.apn404.ews.bengawanews.MainActivity;
 import com.apn404.ews.bengawanews.R;
+import com.apn404.ews.bengawanews.adapter.LokasiAdapter;
+import com.apn404.ews.bengawanews.data.Lokasi;
 import com.apn404.ews.bengawanews.helper.SessionManager;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FragmentNotif extends Fragment {
 
+    ListView list_lokasi;
 
-    public FragmentNotif() {
-        // Required empty public constructor
-    }
+    ArrayList<Lokasi> daftar_lokasi = new ArrayList<>();
+    JSONArray daftarlokasi = null;
+    protected JSONParser jsonParser;
+    int success;
 
-    JSONParser jsonParser = new JSONParser();
-    String url_tambah_lokasi= "http://banjir.mitigasi.com/banjir/android/tambah_lokasi.php";
-    String url_reset_lokasi= "http://banjir.mitigasi.com/banjir/android/reset_lokasi.php";
+    String url_insert_lokasi = "http://ews.apn404.com/TA/android/insert_tampungan.php";
+    String url_hapus_lokasi = "http://ews.apn404.com/TA/android/hapus_lokasi.php";
 
     protected static final String TAG_SUCCESS = "success";
+    protected static final String TAG_LOKASI = "lokasi";
     protected static final String TAG_ID_LOKASI = "id_lokasi";
     protected static final String TAG_NAMA_LOKASI = "nama_lokasi";
     protected static final String TAG_EMAIL = "email";
 
-    protected Spinner lokasi;
     protected ProgressDialog pDialog;
-    protected String strnamalokasi,strid_lokasi,stremail;
-    protected Button pilih,reset;
+    protected String strid_lokasi,stremail;
     SessionManager session;
 
     View view;
+
+    public FragmentNotif() {
+        // Required empty public constructor
+        this.jsonParser = new JSONParser();
+    }
 
     @Override
     public void onStart() {
@@ -87,99 +77,104 @@ public class FragmentNotif extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_notif, container, false);
-        this.lokasi = (Spinner) view.findViewById(R.id.lokasi);
-        this.pilih = (Button) view.findViewById(R.id.simpann);
-        this.reset = (Button) view.findViewById(R.id.reset);
+        list_lokasi = (ListView) view.findViewById(R.id.listnotif);
 
-        try {
-            JSONArray data = new JSONArray(getJSONUrl("http://banjir.mitigasi.com/banjir/android/getLokasi.php"));
+        ReadLokasiTask m = (ReadLokasiTask) new ReadLokasiTask().execute();
 
-            final ArrayList<HashMap<String, String>> MyArrList = new ArrayList<>();
-            HashMap<String, String> map;
+        list_lokasi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
 
-            for(int i = 0; i < data.length(); i++){
-                JSONObject c = data.getJSONObject(i);
-
-                map = new HashMap<>();
-                map.put("id_lokasi", c.getString("id_lokasi"));
-                map.put("nama_lokasi", c.getString("nama_lokasi"));
-                MyArrList.add(map);
+                new android.support.v7.app.AlertDialog.Builder(FragmentNotif.this.getActivity())
+                        .setMessage("Aktifan Notifikasi ?")
+                        .setCancelable(false)
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                strid_lokasi = daftar_lokasi.get(position).getId_lokasi();
+                                new pilihya().execute();
+                            }
+                        })
+                        .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                strid_lokasi = daftar_lokasi.get(position).getId_lokasi();
+                                new pilihtidak().execute();
+                            }
+                        })
+                        .show();
 
             }
-            lokasi.setAdapter(new SimpleAdapter(getActivity(),
-                    MyArrList, R.layout.list_spiner_lokasi, new String[]
-                    {"id_lokasi", "nama_lokasi"}, new int[]
-                    {R.id.id_lokasi, R.id.nama_lokasi}));
+        });
 
-            lokasi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                public void onItemSelected(AdapterView<?> arg0, View selectedItemView, int position, long id) {
-                    strid_lokasi = MyArrList.get(position).get("id_lokasi");
-                    Log.e("Error",""+strid_lokasi);
-                }
-
-                public void onNothingSelected(AdapterView<?> arg0) {
-                    // TODO Auto-generated method stub
-                    Toast.makeText(FragmentNotif.this.getActivity(), "Your Selected : Nothing", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        this.pilih.setOnClickListener(new pilih());
-        this.reset.setOnClickListener(new reset());
         return view;
     }
 
-    class pilih implements View.OnClickListener {
-        public void onClick(View v) {
-            if (stremail!=null){
-            Toast.makeText(FragmentNotif.this.getActivity(),stremail, Toast.LENGTH_SHORT).show();
-            }
-            new tambahlokasi().execute();
-        }
-    }
-    class reset implements View.OnClickListener {
-        public void onClick(View v) {
-            new resetLokasi().execute();
-        }
-    }
+    class ReadLokasiTask extends AsyncTask<String, Void, String> {
+        ProgressDialog pDialog;
+        String url_tampil_lokasi;
 
-    public String getJSONUrl(String url) {
-        StringBuilder str = new StringBuilder();
-        HttpClient client = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(url);
-        try {
-            HttpResponse response = client.execute(httpGet);
-            StatusLine statusLine = response.getStatusLine();
-            int statusCode = statusLine.getStatusCode();
-            if (statusCode == 200) {
-                HttpEntity entity = response.getEntity();
-                InputStream content = entity.getContent();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    str.append(line);
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(FragmentNotif.this.getActivity());
+            pDialog.setMessage("Loading...");
+            pDialog.setIndeterminate(true);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... sText) {
+            url_tampil_lokasi= "http://ews.apn404.com/TA/android/getLokasi.php";
+
+            Lokasi tempLokasi = new Lokasi();
+            try {
+                JSONObject json = FragmentNotif.this.jsonParser.getJSONFromUrl(url_tampil_lokasi);
+
+                success = json.getInt(TAG_SUCCESS);
+                Log.e("error", "nilai sukses=" + success);
+                if (success == 1) {
+                    daftarlokasi = json.getJSONArray(TAG_LOKASI);
+                    for (int i = 0; i < daftarlokasi.length(); i++) {
+                        JSONObject c = daftarlokasi.getJSONObject(i);
+                        tempLokasi = new Lokasi();
+                        tempLokasi.setId_lokasi(c.getString(TAG_ID_LOKASI));
+                        tempLokasi.setNama_lokasi(c.getString(TAG_NAMA_LOKASI));
+                        daftar_lokasi.add(tempLokasi);
+                    }
+
+                    return "OK";
+                } else {
+                    return "no results";
                 }
-            } else {
-                Log.e("Log", "Failed to download result..");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "Exception Caught";
             }
-        } catch (ClientProtocolException e) {
-            //e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        return str.toString();
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            pDialog.dismiss();
+            if (result.equalsIgnoreCase("Exception Caught")) {
+                Toast.makeText(FragmentNotif.this.getActivity(), "Periksa Koneksi Internet Anda...", Toast.LENGTH_LONG).show();
+            }
+            if (result.equalsIgnoreCase("no results")) {
+                Toast.makeText(FragmentNotif.this.getActivity(), "Data Lokasi Masih Kosong", Toast.LENGTH_LONG).show();
+            }
+            if(success == 1) {
+                list_lokasi.setAdapter(new LokasiAdapter(FragmentNotif.this.getActivity(), FragmentNotif.this.daftar_lokasi));
+            }
+        }
+
     }
 
-    public class tambahlokasi extends AsyncTask<String, String, String> {
+
+    public class pilihya extends AsyncTask<String, String, String> {
         int success;
 
-        public tambahlokasi() {
-            //this.strtanggal = FragmentNotif.this.tanggal_lokasi.getText().toString();
+        public pilihya() {
+
         }
 
         protected void onPreExecute() {
@@ -199,7 +194,7 @@ public class FragmentNotif extends Fragment {
             params.add(new BasicNameValuePair(FragmentNotif.TAG_ID_LOKASI, strid_lokasi));
             params.add(new BasicNameValuePair(FragmentNotif.TAG_EMAIL, stremail));
 
-            JSONObject json = jsonParser.makeHttpRequest(url_tambah_lokasi, "POST", params);
+            JSONObject json = jsonParser.makeHttpRequest(url_insert_lokasi, "POST", params);
 
             if (json == null) {
                 return "Error Converting";
@@ -225,28 +220,19 @@ public class FragmentNotif extends Fragment {
                 Toast.makeText(FragmentNotif.this.getActivity(), "Your Connection Error Please Try Again...",  Toast.LENGTH_SHORT).show();
             }
             else if (success == 1){
-                AlertDialog.Builder pDialog = new AlertDialog.Builder(FragmentNotif.this.getActivity());
-                pDialog.setTitle("Tambah lokasi");
-                pDialog.setMessage("Data lokasi Berhasil Tersimpan");
-                pDialog.setNeutralButton("OK", new berhasil()).show();
+                Toast.makeText(FragmentNotif.this.getActivity(), "Notifikasi Diaktifkan", Toast.LENGTH_SHORT).show();
             }
             else if (success == 0) {
-                Toast.makeText(FragmentNotif.this.getActivity(), "Inputan Gagal", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        protected class berhasil implements DialogInterface.OnClickListener {
-            public void onClick(DialogInterface dialog, int d) {
-
+                Toast.makeText(FragmentNotif.this.getActivity(), "Notifikasi Diaktifkan", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    public class resetLokasi extends AsyncTask<String, String, String> {
+    public class pilihtidak extends AsyncTask<String, String, String> {
         int success;
 
-        public resetLokasi() {
-            //this.strtanggal = FragmentNotif.this.tanggal_lokasi.getText().toString();
+        public pilihtidak() {
+
         }
 
         protected void onPreExecute() {
@@ -266,7 +252,7 @@ public class FragmentNotif extends Fragment {
             params.add(new BasicNameValuePair(FragmentNotif.TAG_ID_LOKASI, strid_lokasi));
             params.add(new BasicNameValuePair(FragmentNotif.TAG_EMAIL, stremail));
 
-            JSONObject json = jsonParser.makeHttpRequest(url_reset_lokasi, "POST", params);
+            JSONObject json = jsonParser.makeHttpRequest(url_hapus_lokasi, "POST", params);
 
             if (json == null) {
                 return "Error Converting";
@@ -292,20 +278,12 @@ public class FragmentNotif extends Fragment {
                 Toast.makeText(FragmentNotif.this.getActivity(), "Your Connection Error Please Try Again...",  Toast.LENGTH_SHORT).show();
             }
             else if (success == 1){
-                AlertDialog.Builder pDialog = new AlertDialog.Builder(FragmentNotif.this.getActivity());
-                pDialog.setTitle("Tambah lokasi");
-                pDialog.setMessage("Data lokasi Berhasil Tersimpan");
-                pDialog.setNeutralButton("OK", new berhasil()).show();
+                Toast.makeText(FragmentNotif.this.getActivity(), "Notifikasi Di Non-aktifkan", Toast.LENGTH_SHORT).show();
             }
             else if (success == 0) {
-                Toast.makeText(FragmentNotif.this.getActivity(), "Inputan Gagal", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        protected class berhasil implements DialogInterface.OnClickListener {
-            public void onClick(DialogInterface dialog, int d) {
-
+                Toast.makeText(FragmentNotif.this.getActivity(), "Gagal Input Data", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
 }

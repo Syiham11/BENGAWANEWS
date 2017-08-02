@@ -11,31 +11,40 @@
             android:orientation="vertical"
              android:padding="5dp" >
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/akun1"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:text="Akun Terdaftar"
+                    android:gravity="left|center"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:textColor="#0066cc" />
+                <Space
+                    android:layout_width="1dp"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:id="@+id/email1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="EMAIL : "
+                    android:textColor="#0066cc" />
 
-                        <TextView
-                            android:id="@+id/email1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="EMAIL : "
-                            android:gravity="left|center"
-                            android:textColor="#0066cc" />
-
-                        <TextView
-                            android:id="@+id/email"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="10dp"
-                            android:text="@string/email"
-                            android:layout_toEndOf="@+id/email1"
-                            android:gravity="left|center"
-                            android:textColor="#0066cc" />
-
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/email"
+                    android:layout_toEndOf="@+id/email1"
+                    android:gravity="left|center"
+                    android:textColor="#0066cc" />
 
                 <Button
                     android:id="@+id/logout"

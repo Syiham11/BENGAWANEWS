@@ -7,10 +7,6 @@ package com.apn404.ews.bengawanews.firebase;
 public class Config {
     // global topic to receive app wide push notifications
     public static final String TOPIC_GLOBAL = "global";
-    public static final String TOPIC_JURUG = "jurug";
-    public static final String TOPIC_MOJOLABAN = "mojolaban";
-    public static final String TOPIC_POLOKARTO = "polokarto";
-    public static final String TOPIC_PONOROGO = "ponorogo";
 
     // broadcast receiver intent filters
     public static final String REGISTRATION_COMPLETE = "registrationComplete";
@@ -22,4 +18,3 @@ public class Config {
 
     public static final String SHARED_PREF = "ah_firebase";
 }
-
