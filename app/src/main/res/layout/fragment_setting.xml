@@ -3,10 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="2dp"
-    tools:context="com.apn404.ews.bengawanews.fragment.FragmentNotif">
+    tools:context="com.apn404.ews.bengawanews.fragment.FragmentSetting">
 
+    <!-- TODO: Update blank fragment layout -->
     <ListView
-        android:id="@+id/listnotif"
+        android:id="@+id/lv_tampungan"
         android:divider="@color/list_divider"
         android:dividerHeight="4dp"
         android:layout_margin="4dp"

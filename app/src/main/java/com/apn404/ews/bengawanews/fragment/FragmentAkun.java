@@ -1,15 +1,14 @@
 package com.apn404.ews.bengawanews.fragment;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.apn404.ews.bengawanews.LoginActivity;
 import com.apn404.ews.bengawanews.R;
@@ -18,22 +17,21 @@ import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.HashMap;
-
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FragmentAkun extends Fragment {
-
-    Button logout;
     View view;
     SessionManager session;
-    protected String stremail;
+    Button logout;
     TextView textView;
+    protected String stremail;
+
 
     public FragmentAkun() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,7 +51,6 @@ public class FragmentAkun extends Fragment {
             goLoginScreen();
         }
 
-
         logout = (Button) view.findViewById(R.id.logout);
         textView = (TextView) view.findViewById(R.id.email);
         textView.setText(stremail);
@@ -69,8 +66,7 @@ public class FragmentAkun extends Fragment {
         });
         return view;
     }
-
-    private void goLoginScreen() {
+    public void goLoginScreen() {
         Intent intent = new Intent(getActivity(),LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

@@ -16,6 +16,8 @@ import com.apn404.ews.bengawanews.fragment.FragmentHistory;
 import com.apn404.ews.bengawanews.fragment.FragmentHome;
 import com.apn404.ews.bengawanews.fragment.FragmentMaps;
 import com.apn404.ews.bengawanews.fragment.FragmentNotif;
+import com.apn404.ews.bengawanews.fragment.FragmentSetting;
+import com.apn404.ews.bengawanews.fragment.FragmentSetup;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,11 +51,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.menu_home:
                         fragment = new FragmentHome();
                         break;
+                    case R.id.menu_notif:
+                        fragment = new FragmentSetup();
+                        break;
                     case R.id.menu_akun:
                         fragment = new FragmentAkun();
-                        break;
-                    case R.id.menu_notif:
-                        fragment = new FragmentNotif();
                         break;
                 }
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();

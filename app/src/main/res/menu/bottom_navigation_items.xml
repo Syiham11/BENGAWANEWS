@@ -13,11 +13,11 @@
         android:icon="@drawable/ic_action_history"
         android:title="@string/history"/>
     <item
-        android:id="@+id/menu_akun"
-        android:icon="@drawable/ic_action_akun"
-        android:title="@string/akun"/>
-    <item
         android:id="@+id/menu_notif"
         android:icon="@drawable/ic_action_notif"
+        android:title="@string/setting"/>
+    <item
+        android:id="@+id/menu_akun"
+        android:icon="@drawable/ic_action_settingan"
         android:title="@string/setting"/>
 </menu>

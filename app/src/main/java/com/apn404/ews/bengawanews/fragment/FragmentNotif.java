@@ -1,6 +1,5 @@
 package com.apn404.ews.bengawanews.fragment;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,23 +11,21 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.apn404.ews.bengawanews.JSONParser;
-import com.apn404.ews.bengawanews.MainActivity;
 import com.apn404.ews.bengawanews.R;
 import com.apn404.ews.bengawanews.adapter.LokasiAdapter;
 import com.apn404.ews.bengawanews.data.Lokasi;
 import com.apn404.ews.bengawanews.helper.SessionManager;
-import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +33,6 @@ import android.widget.TextView;
 public class FragmentNotif extends Fragment {
 
     ListView list_lokasi;
-
     ArrayList<Lokasi> daftar_lokasi = new ArrayList<>();
     JSONArray daftarlokasi = null;
     protected JSONParser jsonParser;
@@ -50,11 +46,9 @@ public class FragmentNotif extends Fragment {
     protected static final String TAG_ID_LOKASI = "id_lokasi";
     protected static final String TAG_NAMA_LOKASI = "nama_lokasi";
     protected static final String TAG_EMAIL = "email";
-
     protected ProgressDialog pDialog;
-    protected String strid_lokasi,stremail;
+    protected String strid_lokasi,stremail,strnama_lokasi;
     SessionManager session;
-
     View view;
 
     public FragmentNotif() {
@@ -85,8 +79,9 @@ public class FragmentNotif extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
 
+                strnama_lokasi = daftar_lokasi.get(position).getNama_lokasi();
                 new android.support.v7.app.AlertDialog.Builder(FragmentNotif.this.getActivity())
-                        .setMessage("Aktifan Notifikasi ?")
+                        .setMessage("Aktifkan Notifikasi ?" + " " + strnama_lokasi)
                         .setCancelable(false)
                         .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -214,10 +209,10 @@ public class FragmentNotif extends Fragment {
             FragmentNotif.this.pDialog.dismiss();
 
             if (result.equalsIgnoreCase("Error Converting")){
-                Toast.makeText(FragmentNotif.this.getActivity(), "Please Check Your Internet Connection...",  Toast.LENGTH_SHORT).show();
+                Toast.makeText(FragmentNotif.this.getActivity(), "Mohon Periksa Koneksi Internet",  Toast.LENGTH_SHORT).show();
             }
             else if (result.equalsIgnoreCase("Exception Caught")){
-                Toast.makeText(FragmentNotif.this.getActivity(), "Your Connection Error Please Try Again...",  Toast.LENGTH_SHORT).show();
+                Toast.makeText(FragmentNotif.this.getActivity(), "Mohon Periksa Koneksi Internet",  Toast.LENGTH_SHORT).show();
             }
             else if (success == 1){
                 Toast.makeText(FragmentNotif.this.getActivity(), "Notifikasi Diaktifkan", Toast.LENGTH_SHORT).show();
@@ -272,16 +267,16 @@ public class FragmentNotif extends Fragment {
             FragmentNotif.this.pDialog.dismiss();
 
             if (result.equalsIgnoreCase("Error Converting")){
-                Toast.makeText(FragmentNotif.this.getActivity(), "Please Check Your Internet Connection...",  Toast.LENGTH_SHORT).show();
+                Toast.makeText(FragmentNotif.this.getActivity(), "Mohon Periksa Koneksi Internet",  Toast.LENGTH_SHORT).show();
             }
             else if (result.equalsIgnoreCase("Exception Caught")){
-                Toast.makeText(FragmentNotif.this.getActivity(), "Your Connection Error Please Try Again...",  Toast.LENGTH_SHORT).show();
+                Toast.makeText(FragmentNotif.this.getActivity(), "Mohon Periksa Koneksi Internet",  Toast.LENGTH_SHORT).show();
             }
             else if (success == 1){
                 Toast.makeText(FragmentNotif.this.getActivity(), "Notifikasi Di Non-aktifkan", Toast.LENGTH_SHORT).show();
             }
             else if (success == 0) {
-                Toast.makeText(FragmentNotif.this.getActivity(), "Gagal Input Data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FragmentNotif.this.getActivity(), "Notifikasi Di Non-aktifkan", Toast.LENGTH_SHORT).show();
             }
         }
     }
