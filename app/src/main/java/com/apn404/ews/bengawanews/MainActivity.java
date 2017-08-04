@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.apn404.ews.bengawanews.fragment.FragmentAkun;
+import com.apn404.ews.bengawanews.fragment.FragmentBeranda;
 import com.apn404.ews.bengawanews.fragment.FragmentHistory;
 import com.apn404.ews.bengawanews.fragment.FragmentHome;
 import com.apn404.ews.bengawanews.fragment.FragmentMaps;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
 
         //untuk inisialisasi fragment pertama kali
-        fragmentManager.beginTransaction().replace(R.id.main_container,new FragmentHome()).commit();
+        fragmentManager.beginTransaction().replace(R.id.main_container,new FragmentBeranda()).commit();
         //memberikan listener saat menu item di bottom diklik
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new FragmentHistory();
                         break;
                     case R.id.menu_home:
-                        fragment = new FragmentHome();
+                        fragment = new FragmentBeranda();
                         break;
                     case R.id.menu_notif:
                         fragment = new FragmentSetup();

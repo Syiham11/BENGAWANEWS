@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="2dp"
-    tools:context="com.apn404.ews.bengawanews.fragment.FragmentSetting">
+    tools:context="com.apn404.ews.bengawanews.fragment.FragmentBeranda">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,16 +13,8 @@
     <TextView
         android:id="@+id/akuni"
         android:layout_width="wrap_content"
-        android:text="Lokasi Yang Sedang Aktif"
+        android:text="Data Terbaru Dari Lokasi"
         android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/ju"
-            android:layout_marginTop="5dp"
-            android:layout_width="wrap_content"
-            android:textStyle="italic"
-            android:text="Non-Aktifkan Di Menu List Lokasi"
-            android:layout_height="wrap_content" />
 
     <View android:layout_width="match_parent"
         android:layout_height="2dp"
@@ -33,7 +24,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <ListView
-        android:id="@+id/lv_tampungan"
+        android:id="@+id/lv_fr_beranda"
         android:divider="@color/list_divider"
         android:dividerHeight="4dp"
         android:layout_margin="4dp"

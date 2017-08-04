@@ -32,7 +32,7 @@ import static android.content.ContentValues.TAG;
 public class FragmentMaps extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private String[] id_lokasi,nama_lokasi,ketinggian_air,date_time;
+    private String[] id_lokasi,nama_lokasi,ketinggian_air,date_time,status;
     int numData;
     LatLng latLng[];
     Boolean markerD[];
@@ -69,6 +69,8 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
 
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setTiltGesturesEnabled(true);
+        mMap.getUiSettings().setAllGesturesEnabled (true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
         mMap.getUiSettings().setMapToolbarEnabled(true);
@@ -90,6 +92,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
                 markerD = new Boolean[numData];
                 nama_lokasi = new String[numData];
                 ketinggian_air = new String[numData];
+                status = new String[numData];
                 date_time = new String[numData];
                 id_lokasi = new String[numData];
                 lattitude = new Double[numData];
@@ -106,12 +109,13 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
                         date_time[i] = data.getString("date_time");
                         lattitude[i] = data.getDouble("lattitude");
                         longitude[i] = data.getDouble("longitude");
+                        status[i] = data.getString("status");
 
                         markerD[i] = false;
                         mMap.addMarker(new MarkerOptions()
                                 .position(latLng[i])
                                 .title(nama_lokasi[i])
-                                .snippet(ketinggian_air[i]+" Centi Meter")
+                                .snippet(ketinggian_air[i]+" CM"+" ("+status[i]+")")
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.atm)));
                     } catch (JSONException je) {
                         je.printStackTrace();
@@ -125,7 +129,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getActivity(),"Koneksi Terputus",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Periksa Koneksi Internet",Toast.LENGTH_LONG).show();
             }
         });
         //Volley.newRequestQueue(this).add(request);

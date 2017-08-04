@@ -44,13 +44,13 @@ public class FragmentSetup extends Fragment {
         tabLayout = (TabLayout) view.findViewById(R.id.simpleTabLayout);
 // Create a new Tab named "First"
         TabLayout.Tab firstTab = tabLayout.newTab();
-        firstTab.setText("Aktifkan Notif ?"); // set the Text for the first Tab
+        firstTab.setText("List Lokasi"); // set the Text for the first Tab
         //firstTab.setIcon(R.drawable.ic_action_home); // set an icon for the
 // first tab
         tabLayout.addTab(firstTab); // add  the tab at in the TabLayout
 // Create a new Tab named "Second"
         TabLayout.Tab secondTab = tabLayout.newTab();
-        secondTab.setText("History Notif ?"); // set the Text for the second Tab
+        secondTab.setText("Notifikasi Aktif"); // set the Text for the second Tab
         //secondTab.setIcon(R.drawable.ic_action_notif); // set an icon for the second tab
         tabLayout.addTab(secondTab); // add  the tab  in the TabLayout
 
