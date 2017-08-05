@@ -14,11 +14,8 @@ import android.view.MenuItem;
 import com.apn404.ews.bengawanews.fragment.FragmentAkun;
 import com.apn404.ews.bengawanews.fragment.FragmentBeranda;
 import com.apn404.ews.bengawanews.fragment.FragmentHistory;
-import com.apn404.ews.bengawanews.fragment.FragmentHome;
 import com.apn404.ews.bengawanews.fragment.FragmentMaps;
-import com.apn404.ews.bengawanews.fragment.FragmentNotif;
-import com.apn404.ews.bengawanews.fragment.FragmentSetting;
-import com.apn404.ews.bengawanews.fragment.FragmentSetup;
+import com.apn404.ews.bengawanews.fragment.FragmentNotifikasi;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new FragmentBeranda();
                         break;
                     case R.id.menu_notif:
-                        fragment = new FragmentSetup();
+                        fragment = new FragmentNotifikasi();
                         break;
                     case R.id.menu_akun:
                         fragment = new FragmentAkun();
@@ -65,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
     }
     public void onBackPressed() {
         new AlertDialog.Builder(this)
@@ -78,4 +76,5 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButton("Tidak", null)
                 .show();
     }
+
 }
