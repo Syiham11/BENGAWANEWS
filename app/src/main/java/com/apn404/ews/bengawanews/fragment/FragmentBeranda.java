@@ -2,12 +2,15 @@ package com.apn404.ews.bengawanews.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.apn404.ews.bengawanews.R;
 
@@ -39,12 +42,15 @@ public class FragmentBeranda extends Fragment {
         // Required empty public constructor
     }
     View view;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_beranda, container, false);
-        ListView lvCountries = (ListView) view.findViewById(R.id.lv_fr_beranda);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.activity_main_swipe_refresh_layout);
+        final ListView lvCountries = (ListView) view.findViewById(R.id.lv_fr_beranda);
+
 
         try{
             JSONArray data = new JSONArray(getJSONUrl("http://ews.apn404.com/TA/android/getBerandan.php"));
@@ -75,6 +81,19 @@ public class FragmentBeranda extends Fragment {
                     MyArrList, R.layout.lv_beranda, new String[]
                     {"id_lokasi","nama_lokasi","longitude","lattitude","tingkat_awas","tingkat_waspada","tingkat_siaga","ketinggian_air","date_time","status"}, new int[]
                     {R.id.id_lokasib,R.id.nama_lokasib,R.id.longitudeb,R.id.lattitudeb,R.id.tingkat_awasb,R.id.tingkat_waspadab,R.id.tingkat_siagab, R.id.ketinggian_airb,R.id.date_timeb,R.id.status}));
+
+            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    lvCountries.setAdapter(new SimpleAdapter(getActivity(),
+                            MyArrList, R.layout.lv_beranda, new String[]
+                            {"id_lokasi","nama_lokasi","longitude","lattitude","tingkat_awas","tingkat_waspada","tingkat_siaga","ketinggian_air","date_time","status"}, new int[]
+                            {R.id.id_lokasib,R.id.nama_lokasib,R.id.longitudeb,R.id.lattitudeb,R.id.tingkat_awasb,R.id.tingkat_waspadab,R.id.tingkat_siagab, R.id.ketinggian_airb,R.id.date_timeb,R.id.status}));
+                    Toast.makeText(FragmentBeranda.this.getActivity(), "Data Ter-Update", Toast.LENGTH_SHORT).show();
+                    mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorUncheck,R.color.colorAccent);
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+            });
 
         }catch (JSONException e){
             e.printStackTrace();

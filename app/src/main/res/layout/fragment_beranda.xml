@@ -22,7 +22,12 @@
         android:layout_marginBottom="20dp"
         android:background="#bbb"/>
 
-    <!-- TODO: Update blank fragment layout -->
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/activity_main_swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <!-- TODO: Update blank fragment layout -->
     <ListView
         android:id="@+id/lv_fr_beranda"
         android:divider="@color/list_divider"
@@ -31,5 +36,6 @@
         android:listSelector="@drawable/list_row_selector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
 </FrameLayout>

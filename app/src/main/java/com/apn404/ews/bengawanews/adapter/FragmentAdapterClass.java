@@ -15,9 +15,7 @@ public class FragmentAdapterClass extends FragmentStatePagerAdapter {
     int TabCount;
 
     public FragmentAdapterClass(FragmentManager fragmentManager, int CountTabs) {
-
         super(fragmentManager);
-
         this.TabCount = CountTabs;
     }
 

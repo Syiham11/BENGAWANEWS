@@ -1,6 +1,7 @@
 package com.apn404.ews.bengawanews.fragment;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 public class FragmentSetting extends Fragment {
 
@@ -36,13 +38,16 @@ public class FragmentSetting extends Fragment {
     }
 
     View view;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_setting, container, false);
-        ListView lvCountries = (ListView) view.findViewById(R.id.lv_tampungan);
+        final ListView lvCountries = (ListView) view.findViewById(R.id.lv_tampungan);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.activity_main_swipe_refresh_layout);
 
         try{
             JSONArray data = new JSONArray(getJSONUrl("http://ews.apn404.com/TA/android/getTampungan.php"));
@@ -68,6 +73,19 @@ public class FragmentSetting extends Fragment {
                     MyArrList, R.layout.lv_layout, new String[]
                     {"id_tampungan","id_lokasi", "email","nama_lokasi"}, new int[]
                     {R.id.id_tampungan_lay,R.id.id_lokasi_lay, R.id.email_lay,R.id.nama_lokasi_lay}));
+
+            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    lvCountries.setAdapter(new SimpleAdapter(getActivity(),
+                            MyArrList, R.layout.lv_layout, new String[]
+                            {"id_tampungan","id_lokasi", "email","nama_lokasi"}, new int[]
+                            {R.id.id_tampungan_lay,R.id.id_lokasi_lay, R.id.email_lay,R.id.nama_lokasi_lay}));
+                    Toast.makeText(FragmentSetting.this.getActivity(), "Data Ter-Update", Toast.LENGTH_SHORT).show();
+                    mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorUncheck,R.color.colorAccent);
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+            });
 
         }catch (JSONException e){
             e.printStackTrace();

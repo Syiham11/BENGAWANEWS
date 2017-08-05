@@ -3,6 +3,7 @@ package com.apn404.ews.bengawanews.fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -50,6 +52,7 @@ public class FragmentNotif extends Fragment {
     protected String strid_lokasi,stremail,strnama_lokasi;
     SessionManager session;
     View view;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     public FragmentNotif() {
         // Required empty public constructor
@@ -72,8 +75,20 @@ public class FragmentNotif extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_notif, container, false);
         list_lokasi = (ListView) view.findViewById(R.id.listnotif);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.activity_main_swipe_refresh_layout);
+
 
         ReadLokasiTask m = (ReadLokasiTask) new ReadLokasiTask().execute();
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                list_lokasi.setAdapter(new LokasiAdapter(FragmentNotif.this.getActivity(), FragmentNotif.this.daftar_lokasi));
+                Toast.makeText(FragmentNotif.this.getActivity(), "Data Ter-Update", Toast.LENGTH_SHORT).show();
+                mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorUncheck,R.color.colorAccent);
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         list_lokasi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
