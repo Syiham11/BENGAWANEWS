@@ -5,6 +5,8 @@
     android:padding="5dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
     <TextView
         android:id="@+id/id_lokasib"
         android:layout_width="wrap_content"
@@ -47,7 +49,7 @@
         android:textAllCaps="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
+    <!--Baris 2 Kolom 2 -->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -56,59 +58,71 @@
         android:orientation="vertical"
         android:background="#b3d9ff"
         android:padding="5dp" >
-
-        <TextView
-            android:id="@+id/lattitudeb2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="NAMA LOKASI"/>
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
         <TextView
             android:id="@+id/nama_lokasib"
-            android:icon="@drawable/ic_action_history"
-            android:layout_marginBottom="5dp"
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/lattitudeb21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TINGGI MUKA AIR (dalam CM)"/>
-        <TextView
-            android:id="@+id/ketinggian_airb"
-            android:icon="@drawable/ic_action_history"
-            android:layout_marginBottom="5dp"
+            android:text="nama"
             android:textStyle="bold"
             android:textAllCaps="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/lattitudeb25"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TANGGAL / JAM"/>
+            android:textSize="17dp" />
+
         <TextView
             android:id="@+id/date_timeb"
-            android:icon="@drawable/ic_action_history"
-            android:layout_marginBottom="5dp"
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/lattitudeb24"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="KONDISI"/>
-        <TextView
-            android:id="@+id/status"
-            android:icon="@drawable/ic_action_history"
-            android:layout_marginBottom="5dp"
-            android:textStyle="bold"
+            android:drawableLeft="@drawable/ic_action_tanggal"
             android:textAllCaps="true"
+            android:gravity="right"
+            android:text="tgl"
+            android:textSize="15dp" >
+        </TextView>
+    </TableRow>
+
+    <!-- Baris 3 Kolom 3 -->
+
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+
+            android:id="@+id/status"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:text="status"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="17dp" />
+    </TableRow>
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/ketinggian_airb"
+            android:gravity="right"
+            android:text="tinggi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp" >
+        </TextView>
+
+</TableRow>
+        <TextView
+            android:id="@+id/ketinggian_airbbb"
+            android:gravity="right"
+            android:text=" CM"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17dp" >
+        </TextView>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>

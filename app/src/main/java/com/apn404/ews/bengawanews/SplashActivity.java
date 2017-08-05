@@ -2,7 +2,6 @@ package com.apn404.ews.bengawanews;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
@@ -25,6 +24,6 @@ public class SplashActivity extends Activity {
             startActivity(i);
             finish();
             }
-        }, 2000);
+        }, 3000);
     }
 }

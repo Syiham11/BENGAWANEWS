@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.facebook.AccessToken;
@@ -20,8 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Arrays;
+import java.util.Collections;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -38,14 +39,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        //button_login= (Button) findViewById(R.id.button_login_petugas);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions(Arrays.asList("email"));
+        loginButton.setReadPermissions(Collections.singletonList("email"));
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -55,12 +53,12 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onCancel() {
-                Toast.makeText(getApplicationContext(), "Cancel Login Facebook", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Batal Login", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(FacebookException error) {
-                Toast.makeText(getApplicationContext(), "Please Check Your Internet Connection...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Periksa Koneksi Internet", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -74,26 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
-
-        /*button_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goLoginPetugas();
-            }
-        });*/
     }
-
-/*
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult){
-
-    }
-*/
-
-    /*private void goLoginPetugas(){
-        Intent intent = new Intent(this, LoginPetugasActivity.class);
-        startActivity(intent);
-    }*/
 
     private void handleFacebookAccessToken(AccessToken accessToken){
         progressBar.setVisibility(View.VISIBLE);
@@ -104,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task){
                 if(!task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(), "Please Check Your Internet Connection...", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Periksa Koneksi Internet", Toast.LENGTH_LONG).show();
                 }
                 progressBar.setVisibility(View.VISIBLE);
                 loginButton.setVisibility(View.GONE);
@@ -123,32 +102,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
             callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-
-   /* private void handleSignInResult(GoogleSignInResult result){
-        if(result.isSuccess()){
-            firebaseAuthWithGoogle(result.getSignInAccount());
-        }else{
-            Toast.makeText(this, "Cancel Login Google", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-*/    /*private void firebaseAuthWithGoogle(GoogleSignInAccount signInAccount){
-
-        progressBar.setVisibility(View.VISIBLE);
-        signInButton.setVisibility(View.GONE);
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(),null);
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                progressBar.setVisibility(View.GONE);
-                signInButton.setVisibility(View.VISIBLE);
-                if(task.isSuccessful()){
-
-                }
-            }
-        });
-    }*/
 
     @Override
     protected void onStart(){

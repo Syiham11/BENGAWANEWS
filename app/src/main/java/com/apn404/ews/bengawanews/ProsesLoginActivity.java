@@ -11,6 +11,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.apn404.ews.bengawanews.firebase.Config;
@@ -40,15 +42,13 @@ public class ProsesLoginActivity extends Activity {
     public static final String TAG_UID = "uid";
     public static final String TAG_TOKEN = "token";
     String regId;
-    //String jenis_kelamin;
     int success;
-    String nama,email,uid,token;
+    String nama,email,uid;
     SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
         setContentView(R.layout.proses_login);
 
         session = new SessionManager(getApplication());
@@ -63,7 +63,6 @@ public class ProsesLoginActivity extends Activity {
             nama  = user.getDisplayName();
             email = user.getEmail();
             uid   = user.getUid();
-            //Log.e("error", "email kebaca=" + email);
             new LoginUser().execute();
         }
         else{
@@ -137,13 +136,13 @@ public class ProsesLoginActivity extends Activity {
             dialog.dismiss();
 
             if (result.equalsIgnoreCase("Exception Caught")){
-                Toast.makeText(ProsesLoginActivity.this, "Connection To Server Trouble During Login...",  Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProsesLoginActivity.this, "Periksa Koneksi Internet",  Toast.LENGTH_SHORT).show();
                 FirebaseAuth.getInstance().signOut();
                 LoginManager.getInstance().logOut();
                 goLoginScreen();
             }
             else if (result.equalsIgnoreCase("Error Converting")){
-                Toast.makeText(ProsesLoginActivity.this, "Can't Connect To Server During Login...",  Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProsesLoginActivity.this, "Periksa Koneksi Internet",  Toast.LENGTH_SHORT).show();
                 FirebaseAuth.getInstance().signOut();
                 LoginManager.getInstance().logOut();
                 goLoginScreen();
@@ -183,7 +182,6 @@ public class ProsesLoginActivity extends Activity {
             params.add(new BasicNameValuePair(TAG_EMAIL, email));
             params.add(new BasicNameValuePair(TAG_UID, uid));
             params.add(new BasicNameValuePair(TAG_TOKEN, regId));
-            //params.add(new BasicNameValuePair(TAG_, token));
 
             // Note that create Post url accepts POST method
             JSONObject json = jsonParser.makeHttpRequest(url_register_user, "POST", params);
@@ -208,21 +206,19 @@ public class ProsesLoginActivity extends Activity {
             dialog.dismiss();
 
             if (result.equalsIgnoreCase("Exception Caught")){
-                Toast.makeText(ProsesLoginActivity.this, "Connection To Server Trouble During Register...",  Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProsesLoginActivity.this, "Periksa Koneksi Internet",  Toast.LENGTH_SHORT).show();
                 FirebaseAuth.getInstance().signOut();
                 LoginManager.getInstance().logOut();
                 goLoginScreen();
             }
             else if (result.equalsIgnoreCase("Error Converting")){
-                Toast.makeText(ProsesLoginActivity.this, "Can't Connect To Server During Register...",  Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProsesLoginActivity.this, "Periksa Koneksi Internet",  Toast.LENGTH_SHORT).show();
                 FirebaseAuth.getInstance().signOut();
                 LoginManager.getInstance().logOut();
                 goLoginScreen();
             }
             else if (success == 1){
-                //ProsesLoginActivity.this.startActivity(new Intent(ProsesLoginActivity.this, MainActivity.class));
                 new LoginUser().execute();
-                //ProsesLoginActivity.this.finish();
             }
         }
     }

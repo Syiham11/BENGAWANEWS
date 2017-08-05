@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import com.apn404.ews.bengawanews.R;
+import com.apn404.ews.bengawanews.helper.SessionManager;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -39,7 +40,18 @@ public class FragmentSetting extends Fragment {
 
     View view;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    String stremail;
+    SessionManager session;
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        this.session = new SessionManager(getActivity());
+        this.session.checkLogin();
+
+        stremail = this.session.getUserDetails().get(SessionManager.KEY_EMAIL);
+        session = new SessionManager(getActivity().getApplicationContext());
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +62,8 @@ public class FragmentSetting extends Fragment {
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.activity_main_swipe_refresh_layout);
 
         try{
-            JSONArray data = new JSONArray(getJSONUrl("http://ews.apn404.com/TA/android/getTampungan.php"));
+
+            JSONArray data = new JSONArray(getJSONUrl("http://ews.apn404.com/TA/android/getTampungan.php?email="+stremail+""));
 
             final ArrayList<HashMap<String, String>> MyArrList = new ArrayList<>();
             HashMap<String, String> map;

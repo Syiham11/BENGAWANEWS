@@ -27,6 +27,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 import static android.content.ContentValues.TAG;
 
 public class FragmentMaps extends Fragment implements OnMapReadyCallback {
@@ -98,6 +100,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
                 lattitude = new Double[numData];
                 longitude = new Double[numData];
 
+
                 for (int i = 0; i < numData; i++) {
                     try {
                         JSONObject data = response.getJSONObject(i);
@@ -111,12 +114,30 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
                         longitude[i] = data.getDouble("longitude");
                         status[i] = data.getString("status");
 
-                        markerD[i] = false;
-                        mMap.addMarker(new MarkerOptions()
-                                .position(latLng[i])
-                                .title(nama_lokasi[i])
-                                .snippet(ketinggian_air[i]+" CM"+" ("+status[i]+")")
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.atm)));
+                        if (Objects.equals(status[i], "SIAGA")){
+                            markerD[i] = false;
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(latLng[i])
+                                    .title(nama_lokasi[i])
+                                    .snippet(ketinggian_air[i]+" CM"+" ("+status[i]+")")
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.atm)));
+                        }
+                        else if (Objects.equals(status[i], "WASPADA")){
+                            markerD[i] = false;
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(latLng[i])
+                                    .title(nama_lokasi[i])
+                                    .snippet(ketinggian_air[i]+" CM"+" ("+status[i]+")")
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.masjid)));
+                        }else{
+                            markerD[i] = false;
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(latLng[i])
+                                    .title(nama_lokasi[i])
+                                    .snippet(ketinggian_air[i]+" CM"+" ("+status[i]+")")
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.klinik)));
+                        }
+
                     } catch (JSONException je) {
                         je.printStackTrace();
                     }
