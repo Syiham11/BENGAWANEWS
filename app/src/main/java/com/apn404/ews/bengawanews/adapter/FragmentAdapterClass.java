@@ -13,6 +13,7 @@ import com.apn404.ews.bengawanews.fragment.FragmentSetting;
 public class FragmentAdapterClass extends FragmentStatePagerAdapter {
 
     int TabCount;
+    String mGeneralString;
 
     public FragmentAdapterClass(FragmentManager fragmentManager, int CountTabs) {
         super(fragmentManager);
@@ -34,6 +35,11 @@ public class FragmentAdapterClass extends FragmentStatePagerAdapter {
             default:
                 return null;
         }
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return super.getItemPosition(object);
     }
 
     @Override

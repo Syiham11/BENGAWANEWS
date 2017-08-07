@@ -44,13 +44,13 @@ public class FragmentSetup extends Fragment {
         tabLayout = (TabLayout) view.findViewById(R.id.simpleTabLayout);
 // Create a new Tab named "First"
         TabLayout.Tab firstTab = tabLayout.newTab();
-        firstTab.setText("List Lokasi"); // set the Text for the first Tab
+        firstTab.setText("Notifikasi Aktif"); // set the Text for the first Tab
         //firstTab.setIcon(R.drawable.ic_action_home); // set an icon for the
 // first tab
         tabLayout.addTab(firstTab); // add  the tab at in the TabLayout
 // Create a new Tab named "Second"
         TabLayout.Tab secondTab = tabLayout.newTab();
-        secondTab.setText("Notifikasi Aktif"); // set the Text for the second Tab
+        secondTab.setText("List Lokasi"); // set the Text for the second Tab
         //secondTab.setIcon(R.drawable.ic_action_notif); // set an icon for the second tab
         tabLayout.addTab(secondTab); // add  the tab  in the TabLayout
 
@@ -62,10 +62,10 @@ public class FragmentSetup extends Fragment {
                 Fragment fragment = null;
                 switch (tab.getPosition()) {
                     case 0:
-                        fragment = new FragmentNotif();
+                        fragment = new FragmentSetting();
                         break;
                     case 1:
-                        fragment = new FragmentSetting();
+                        fragment = new FragmentNotif();
                         break;
                 }
                 FragmentManager fm = getActivity().getSupportFragmentManager();

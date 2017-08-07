@@ -4,25 +4,31 @@
     android:layout_height="match_parent"
     tools:context="com.apn404.ews.bengawanews.fragment.FragmentAkun">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="15dp"
-        >
+        android:padding="15dp" >
+
         <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" >
             <TextView
             android:id="@+id/akuni"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:gravity="left|center"
-            android:text="Akun Terdaftar"
+                android:layout_height="wrap_content"
+                android:gravity="left|center"
+            android:drawableLeft="@drawable/ic_action_akundaftar"
             android:layout_marginBottom="20dp"
-            android:layout_height="wrap_content" />
+                android:layout_alignParentLeft="true"
+                android:text=" Akun Terdaftar" />
         </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -33,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:gravity="left|center"
+            android:text="agungeks@student.uns.ac.id"
             android:layout_marginBottom="20dp"
             android:textColor="#0066cc" />
 
@@ -44,7 +51,9 @@
             android:text="@string/logout"
             android:layout_alignParentRight="true"
             android:textColor="@color/white" />
-</RelativeLayout>
+
+        </RelativeLayout>
+
         <View android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="30dp"
@@ -54,8 +63,9 @@
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/ic_action_tanggal"
             android:gravity="left|center"
-            android:text="Tentang Aplikasi"
+            android:text=" Tentang Aplikasi"
             android:layout_marginBottom="20dp"
             android:layout_height="wrap_content" />
 
@@ -72,11 +82,17 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:gravity="left|center"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="20dp"
+            android:text="www.banjir.mitigasi.com/banjir"
+            android:textColor="#0066cc" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:gravity="left|center"
             android:text="Made in M3114006 D3 Teknik Infromatika UNS"
             android:textColor="#0066cc" />
 
-
     </LinearLayout>
-
+    </ScrollView>
 </FrameLayout>

@@ -21,6 +21,9 @@
 
         <TextView
             android:id="@+id/nama_lokasi2"
+            android:text="JURUG"
+            android:textSize="20dp"
+            android:drawableLeft="@drawable/ic_action_lokasi"
             android:icon="@drawable/ic_action_history"
             android:layout_marginBottom="5dp"
             android:textStyle="bold"

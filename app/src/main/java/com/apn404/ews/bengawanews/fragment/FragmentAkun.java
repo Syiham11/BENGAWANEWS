@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.apn404.ews.bengawanews.CaraActivity;
 import com.apn404.ews.bengawanews.LoginActivity;
 import com.apn404.ews.bengawanews.R;
 import com.apn404.ews.bengawanews.helper.SessionManager;
@@ -64,8 +65,10 @@ public class FragmentAkun extends Fragment {
                 goLoginScreen();
             }
         });
+
         return view;
     }
+
     public void goLoginScreen() {
         Intent intent = new Intent(getActivity(),LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
