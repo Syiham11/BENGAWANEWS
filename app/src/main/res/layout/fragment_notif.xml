@@ -16,7 +16,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/kuni"
-                android:drawableLeft="@drawable/ic_action_notif"
+                android:drawableLeft="@drawable/ic_action_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"/>

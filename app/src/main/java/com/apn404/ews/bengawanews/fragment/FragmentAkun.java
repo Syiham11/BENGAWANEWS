@@ -33,7 +33,6 @@ public class FragmentAkun extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,9 +40,7 @@ public class FragmentAkun extends Fragment {
         view = inflater.inflate(R.layout.fragment_akun, container, false);
 
         this.session = new SessionManager(getActivity());
-        //ngecek login e
         this.session.checkLogin();
-//betul dapet email
         stremail = this.session.getUserDetails().get(SessionManager.KEY_EMAIL);
 
         session = new SessionManager(getActivity().getApplicationContext());

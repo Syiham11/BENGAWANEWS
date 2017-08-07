@@ -1,15 +1,19 @@
 package com.apn404.ews.bengawanews.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apn404.ews.bengawanews.R;
@@ -42,6 +46,7 @@ public class FragmentBeranda extends Fragment {
         // Required empty public constructor
     }
     View view;
+    TextView textView;
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
@@ -51,6 +56,7 @@ public class FragmentBeranda extends Fragment {
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.activity_main_swipe_refresh_layout);
         final ListView lvCountries = (ListView) view.findViewById(R.id.lv_fr_beranda);
 
+        TextView textView = (TextView) view.findViewById(R.id.kuni);
 
         try{
             JSONArray data = new JSONArray(getJSONUrl("http://ews.apn404.com/TA/android/getBerandan.php"));
@@ -62,7 +68,6 @@ public class FragmentBeranda extends Fragment {
                 JSONObject c = data.getJSONObject(i);
 
                 map = new HashMap<>();
-                //ngambil data dari database
                 map.put("id_lokasi", c.getString("id_lokasi"));
                 map.put("nama_lokasi", c.getString("nama_lokasi"));
                 map.put("longitude", c.getString("longitude"));
@@ -98,7 +103,30 @@ public class FragmentBeranda extends Fragment {
         }catch (JSONException e){
             e.printStackTrace();
         }
+
+        textView.setOnClickListener(new TextView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
+
         return view;
+    }
+
+    private void showDialog(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
+        alertDialogBuilder.setTitle("Sekilas Info !");
+        alertDialogBuilder
+                .setMessage("Level Status ada tiga yakni Siaga,Waspada, dan Awas")
+                .setCancelable(false)
+                .setPositiveButton("Oke",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     public String getJSONUrl(String url) {

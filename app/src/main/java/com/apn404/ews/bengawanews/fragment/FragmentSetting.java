@@ -1,7 +1,9 @@
 package com.apn404.ews.bengawanews.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.support.v4.app.Fragment;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class FragmentSetting extends Fragment {
@@ -40,6 +43,7 @@ public class FragmentSetting extends Fragment {
     }
 
     View view;
+    TextView textView;
     SwipeRefreshLayout mSwipeRefreshLayout;
     String stremail;
     ListView lvCountries;
@@ -49,18 +53,16 @@ public class FragmentSetting extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         view = inflater.inflate(R.layout.fragment_setting, container, false);
         final ListView lvCountries = (ListView) view.findViewById(R.id.lv_tampungan);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.activity_main_swipe_refresh_layout);
+        TextView textView = (TextView) view.findViewById(R.id.kuni);
 
         try{
             this.session = new SessionManager(getActivity());
-            //ngecek login e
             this.session.checkLogin();
-            //betul dapet email
             stremail = this.session.getUserDetails().get(SessionManager.KEY_EMAIL);
-
             session = new SessionManager(getActivity().getApplicationContext());
 
             //JSONArray data = new JSONArray(getJSONUrl("http://ews.apn404.com/TA/android/getTampungan.php?email=agungeks@student.uns.ac.id"));
@@ -104,7 +106,29 @@ public class FragmentSetting extends Fragment {
         }catch (JSONException e){
             e.printStackTrace();
         }
+        textView.setOnClickListener(new TextView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
+
         return view;
+    }
+
+    private void showDialog(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
+        alertDialogBuilder.setTitle("Sekilas Info !");
+        alertDialogBuilder
+                .setMessage("Anda akan mendapatkan notifikasi dari lokasi yang aktif")
+                .setCancelable(false)
+                .setPositiveButton("Oke",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     public String getJSONUrl(String url) {

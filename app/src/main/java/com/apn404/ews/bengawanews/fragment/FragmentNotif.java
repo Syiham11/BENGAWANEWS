@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -52,6 +54,7 @@ public class FragmentNotif extends Fragment {
     protected String strid_lokasi,stremail,strnama_lokasi;
     SessionManager session;
     View view;
+    TextView textView;
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     public FragmentNotif() {
@@ -76,7 +79,7 @@ public class FragmentNotif extends Fragment {
         view = inflater.inflate(R.layout.fragment_notif, container, false);
         list_lokasi = (ListView) view.findViewById(R.id.listnotif);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.activity_main_swipe_refresh_layout);
-
+        TextView textView = (TextView) view.findViewById(R.id.kuni);
 
         ReadLokasiTask m = (ReadLokasiTask) new ReadLokasiTask().execute();
 
@@ -115,7 +118,29 @@ public class FragmentNotif extends Fragment {
             }
         });
 
+        textView.setOnClickListener(new TextView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
+
         return view;
+    }
+
+    private void showDialog(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
+        alertDialogBuilder.setTitle("Sekilas Info !");
+        alertDialogBuilder
+                .setMessage("List Data berasala dari data lokasi pada server")
+                .setCancelable(false)
+                .setPositiveButton("Oke",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     class ReadLokasiTask extends AsyncTask<String, Void, String> {
