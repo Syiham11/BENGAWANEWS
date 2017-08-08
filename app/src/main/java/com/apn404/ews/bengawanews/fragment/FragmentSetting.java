@@ -120,7 +120,7 @@ public class FragmentSetting extends Fragment {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
         alertDialogBuilder.setTitle("Sekilas Info !");
         alertDialogBuilder
-                .setMessage("Anda akan mendapatkan notifikasi dari lokasi yang aktif")
+                .setMessage("Anda akan mendapatkan notifikasi dari lokasi yang aktif,Nonaktifkan lokasi dengan kembali ke Menu List Lokasi lalu pilih tombol Tidak")
                 .setCancelable(false)
                 .setPositiveButton("Oke",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {

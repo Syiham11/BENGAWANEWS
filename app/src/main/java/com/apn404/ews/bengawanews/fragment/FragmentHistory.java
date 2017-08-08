@@ -34,7 +34,7 @@ public class FragmentHistory extends Fragment {
         web = (WebView) view.findViewById(R.id.web);
         web.setWebViewClient(new FragmentHistory.myWebClient());
         web.getSettings().setJavaScriptEnabled(true);
-        web.loadUrl("http://banjir.mitigasi.com/banjir/dasbor/jejakA");
+        web.loadUrl("http://ews.apn404.com/TA/dasbor/jejakA");
         TextView textView = (TextView) view.findViewById(R.id.kuni);
 
         textView.setOnClickListener(new TextView.OnClickListener() {

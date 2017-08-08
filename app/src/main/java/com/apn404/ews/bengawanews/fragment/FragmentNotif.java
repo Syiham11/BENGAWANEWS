@@ -132,7 +132,7 @@ public class FragmentNotif extends Fragment {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
         alertDialogBuilder.setTitle("Sekilas Info !");
         alertDialogBuilder
-                .setMessage("List Data berasala dari data lokasi pada server")
+                .setMessage("Silakan pilih lokasi dengan memilih tombol Ya ,jika anda ingin mendapatkan notifikasi")
                 .setCancelable(false)
                 .setPositiveButton("Oke",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {

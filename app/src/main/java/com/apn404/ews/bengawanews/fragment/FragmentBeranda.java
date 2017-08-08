@@ -118,7 +118,7 @@ public class FragmentBeranda extends Fragment {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
         alertDialogBuilder.setTitle("Sekilas Info !");
         alertDialogBuilder
-                .setMessage("Level Status ada tiga yakni Siaga,Waspada, dan Awas")
+                .setMessage("Kondisi level berdasarkan pada keadaan lokasi penempatan alat")
                 .setCancelable(false)
                 .setPositiveButton("Oke",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
