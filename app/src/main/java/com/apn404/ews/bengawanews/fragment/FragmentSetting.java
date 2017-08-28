@@ -66,7 +66,7 @@ public class FragmentSetting extends Fragment {
             session = new SessionManager(getActivity().getApplicationContext());
 
             //JSONArray data = new JSONArray(getJSONUrl("http://ews.apn404.com/TA/android/getTampungan.php?email=agungeks@student.uns.ac.id"));
-            JSONArray data = new JSONArray(getJSONUrl("http://ews.apn404.com/TA/android/getTampungan.php?email="+stremail+""));
+            JSONArray data = new JSONArray(getJSONUrl("http://banjir.mitigasi.com/banjir/android/getTampungan.php?email="+stremail+""));
 
             final ArrayList<HashMap<String, String>> MyArrList = new ArrayList<>();
             HashMap<String, String> map;

@@ -42,8 +42,8 @@ public class FragmentNotif extends Fragment {
     protected JSONParser jsonParser;
     int success;
 
-    String url_insert_lokasi = "http://ews.apn404.com/TA/android/insert_tampungan.php";
-    String url_hapus_lokasi = "http://ews.apn404.com/TA/android/hapus_lokasi.php";
+    String url_insert_lokasi = "http://banjir.mitigasi.com/banjir/android/insert_tampungan.php";
+    String url_hapus_lokasi = "http://banjir.mitigasi.com/banjir/android/hapus_lokasi.php";
 
     protected static final String TAG_SUCCESS = "success";
     protected static final String TAG_LOKASI = "lokasi";
@@ -159,7 +159,7 @@ public class FragmentNotif extends Fragment {
 
         @Override
         protected String doInBackground(String... sText) {
-            url_tampil_lokasi= "http://ews.apn404.com/TA/android/getLokasi.php";
+            url_tampil_lokasi= "http://banjir.mitigasi.com/banjir/android/getLokasi.php";
 
             Lokasi tempLokasi = new Lokasi();
             try {

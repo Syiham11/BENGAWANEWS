@@ -59,7 +59,7 @@ public class FragmentBeranda extends Fragment {
         TextView textView = (TextView) view.findViewById(R.id.kuni);
 
         try{
-            JSONArray data = new JSONArray(getJSONUrl("http://ews.apn404.com/TA/android/getBerandan.php"));
+            JSONArray data = new JSONArray(getJSONUrl("http://banjir.mitigasi.com/banjir/android/getBerandan.php"));
 
             final ArrayList<HashMap<String, String>> MyArrList = new ArrayList<>();
             HashMap<String, String> map;

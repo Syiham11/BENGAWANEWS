@@ -33,8 +33,8 @@ public class ProsesLoginActivity extends Activity {
 
     private static final String TAG = ProsesLoginActivity.class.getSimpleName();
     JSONParser jsonParser = new JSONParser();
-    String url_login_user= "http://ews.apn404.com/TA/android/login_user.php";
-    String url_register_user= "http://ews.apn404.com/TA/android/register_user.php";
+    String url_login_user= "http://banjir.mitigasi.com/banjir/android/login_user.php";
+    String url_register_user= "http://banjir.mitigasi.com/banjir/android/register_user.php";
 
     // JSON Node names, ini harus sesuai yang di API
     public static final String TAG_NAMA = "nama";
