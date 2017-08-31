@@ -15,7 +15,6 @@ import com.apn404.ews.bengawanews.fragment.FragmentAkun;
 import com.apn404.ews.bengawanews.fragment.FragmentBeranda;
 import com.apn404.ews.bengawanews.fragment.FragmentHistory;
 import com.apn404.ews.bengawanews.fragment.FragmentMaps;
-import com.apn404.ews.bengawanews.fragment.FragmentNotifikasi;
 import com.apn404.ews.bengawanews.fragment.FragmentSetup;
 
 public class MainActivity extends AppCompatActivity {

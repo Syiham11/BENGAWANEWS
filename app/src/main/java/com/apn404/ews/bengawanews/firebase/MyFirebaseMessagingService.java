@@ -19,10 +19,6 @@ import org.json.JSONObject;
 import com.apn404.ews.bengawanews.firebase.Config;
 import com.apn404.ews.bengawanews.firebase.NotificationUtils;
 
-/**
- * Created by Ravi Tamada on 08/08/16.
- * www.androidhive.info
- */
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = MyFirebaseMessagingService.class.getSimpleName();

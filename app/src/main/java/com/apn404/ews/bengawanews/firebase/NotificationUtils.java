@@ -37,11 +37,8 @@ import java.util.List;
 import com.apn404.ews.bengawanews.R;
 import com.apn404.ews.bengawanews.firebase.Config;
 
-/**
- * Created by Ravi on 31/03/15.
- */
-public class NotificationUtils {
 
+public class NotificationUtils {
     private static String TAG = NotificationUtils.class.getSimpleName();
 
     private Context mContext;

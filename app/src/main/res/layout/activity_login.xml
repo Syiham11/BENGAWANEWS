@@ -8,7 +8,8 @@ android:layout_height="match_parent" >
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:scaleType="fitXY" />
-<com.facebook.login.widget.LoginButton
+
+    <com.facebook.login.widget.LoginButton
     android:id="@+id/login_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -17,7 +18,8 @@ android:layout_height="match_parent" >
     android:layout_centerVertical="true"
     android:textColor="@color/white"
     android:ellipsize="middle" />
-<ProgressBar
+
+    <ProgressBar
     android:id="@+id/progressBar1"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"

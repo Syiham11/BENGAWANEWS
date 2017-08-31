@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.apn404.ews.bengawanews.CaraActivity;
 import com.apn404.ews.bengawanews.LoginActivity;
 import com.apn404.ews.bengawanews.R;
 import com.apn404.ews.bengawanews.helper.SessionManager;
